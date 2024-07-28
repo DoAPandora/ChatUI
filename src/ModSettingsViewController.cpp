@@ -2,12 +2,12 @@
 
 #include "HMUI/Touchable.hpp"
 
-#include "questui/shared/BeatSaberUI.hpp"
+#include "bsml/shared/BSML.hpp"
 
-#include "customlogger.hpp"
+#include "logger.hpp"
 #include "ModConfig.hpp"
 
-using namespace QuestUI;
+using namespace BSML;
 using namespace UnityEngine;
 using namespace UnityEngine::UI;
 using namespace HMUI;

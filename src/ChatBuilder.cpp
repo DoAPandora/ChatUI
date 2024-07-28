@@ -1,6 +1,6 @@
-#include "questui/shared/QuestUI.hpp"
-#include "questui/shared/BeatSaberUI.hpp"
-#include "questui/shared/CustomTypes/Components/Backgroundable.hpp"
+#include "bsml/shared/BSML.hpp"
+#include "bsml/shared/BSML/Components/Backgroundable.hpp"
+#include "bsml/shared/BSML/FloatingScreen/FloatingScreen.hpp"
 
 #include "UnityEngine/RectOffset.hpp"
 #include "UnityEngine/RectTransform.hpp"
@@ -10,13 +10,14 @@
 #include "VRUIControls/VRGraphicRaycaster.hpp"
 
 #include "ChatBuilder.hpp"
-#include "customlogger.hpp"
+#include "logger.hpp"
 
-using namespace QuestUI;
+using namespace BSML;
 using namespace UnityEngine;
 using namespace UnityEngine::UI;
 using namespace HMUI;
 using namespace TMPro;
+using namespace ChatUI;
 
 //BAD STUFF I KNOW
 ChatUI::ChatHandler* chatHandler = nullptr;

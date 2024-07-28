@@ -5,15 +5,15 @@
 
 #include "TwitchIRC/TwitchIRCClient.hpp"
 
-#include "questui/shared/QuestUI.hpp"
-#include "questui/shared/CustomTypes/Components/MainThreadScheduler.hpp"
+#include "bsml/shared/BSML.hpp"
+#include "bsml/shared/MainThreadScheduler.hpp"
 
 #include "UnityEngine/SceneManagement/Scene.hpp"
 #include "UnityEngine/SceneManagement/SceneManager.hpp"
 
 #include "CustomTypes/ChatHandler.hpp"
 #include "ChatBuilder.hpp"
-#include "customlogger.hpp"
+#include "logger.hpp"
 #include "ModConfig.hpp"
 #include "ModSettingsViewController.hpp"
 
@@ -23,12 +23,7 @@
 #include <sstream>
 #include <chrono>
 
-ModInfo modInfo;
-
-Logger& getLogger() {
-    static auto logger = new Logger(modInfo, LoggerOptions(false, true));
-    return *logger;
-}
+static modloader::ModInfo modInfo{MOD_ID, VERSION, 0};
 
 //TODO: Add to ModConfig
 std::unordered_set<std::string> Blacklist;
@@ -150,28 +145,30 @@ MAKE_HOOK_MATCH(SceneManager_Internal_ActiveSceneChanged,
     }
 }
 
-extern "C" void setup(ModInfo& info) {
-    modInfo.id = "ChatUI";
-    modInfo.version = VERSION;
-    info = modInfo;
+MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
+    ModInfo.id = "ChatUI";
+    ModInfo.version = VERSION;
+    *info = modInfo.to_c();
 
     Blacklist.insert("dootybot");
     Blacklist.insert("nightbot");
 
-    getModConfig().Init(modInfo);
+    getConfig().Load();
 }
 
-extern "C" void load() {
-    getLogger().info("Starting ChatUI installation...");
+extern "C" void late_load() {
+
     il2cpp_functions::Init();
 
-    QuestUI::Init();
+    BSML::Init();
 
     custom_types::Register::AutoRegister();
 
-    QuestUI::Register::RegisterModSettingsViewController(modInfo, DidActivate);
+    BSML::Register::RegisterMainMenuViewController(ChatUI, DidActivate);
+
+    PaperLogger.info("Starting ChatUI installation...");
 
     INSTALL_HOOK(getLogger(), SceneManager_Internal_ActiveSceneChanged);
     
-    getLogger().info("Successfully installed ChatUI!");
+    PaperLogger.info("Successfully installed ChatUI!");
 }

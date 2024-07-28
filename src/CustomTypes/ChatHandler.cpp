@@ -4,7 +4,7 @@
 
 #include "beatsaber-hook/shared/utils/utils.h"
 
-#include "questui/shared/BeatSaberUI.hpp"
+#include "bsml/shared/BSML.hpp"
 
 #include "UnityEngine/Rect.hpp"
 #include "UnityEngine/SceneManagement/SceneManager.hpp"
@@ -13,17 +13,18 @@
 
 #include "CustomTypes/ChatHandler.hpp"
 
-#include "customlogger.hpp"
+#include "logger.hpp"
 
 #include "ModConfig.hpp"
 
 DEFINE_TYPE(ChatUI, ChatHandler);
 
-using namespace QuestUI;
+using namespace BSML;
 using namespace UnityEngine;
 using namespace UnityEngine::SceneManagement;
 using namespace UnityEngine::UI;
 using namespace TMPro;
+using namespace ChatUI;
 
 void ChatUI::ChatHandler::Update() {
     if(!LayoutTransform && !Canvas) return;
