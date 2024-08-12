@@ -55,7 +55,7 @@ void ChatUI::ChatHandler::Update() {
                 it = chatObjects.erase(it--);
             }
         } else {
-            TextMeshProUGUI* text = BeatSaberUI::CreateText(LayoutTransform, object.Text);
+            TextMeshProUGUI* text = BSML::CreateText(LayoutTransform, object.Text);
             text->set_enableWordWrapping(true);
             text->set_fontSize(3.2f);
             text->set_alignment(TextAlignmentOptions::MidlineLeft);

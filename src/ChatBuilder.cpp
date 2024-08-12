@@ -25,17 +25,17 @@ ChatUI::ChatHandler* chatHandler = nullptr;
 void CreateChatGameObject() {
     if(chatHandler) 
         return;
-    UnityEngine::GameObject* chatGameObject = BeatSaberUI::CreateCanvas();
+    UnityEngine::GameObject* chatGameObject = BSML::Lite::CreateCanvas();
     Object::DestroyImmediate(chatGameObject->GetComponent<VRUIControls::VRGraphicRaycaster*>());
     Object::DontDestroyOnLoad(chatGameObject);
     
     chatHandler = chatGameObject->AddComponent<ChatUI::ChatHandler*>();
     chatGameObject->AddComponent<RectMask2D*>();
-    chatGameObject->AddComponent<Backgroundable*>()->ApplyBackgroundWithAlpha("round-rect-panel", 0.75f);
+    //chatGameObject->AddComponent<Backgroundable*>()->ApplyBackgroundWithAlpha("round-rect-panel", 0.75f); (WILL GET REMOVED SOON!)
     RectTransform* transform = chatGameObject->GetComponent<RectTransform*>();
 
-    VerticalLayoutGroup* layout = BeatSaberUI::CreateVerticalLayoutGroup(transform);
-    ContentSizeFitter* contentSizeFitter = layout->GetComponent<ContentSizeFitter*>();
+    VerticalLayoutGroup* layout = UnityEngine::CreateVerticalLayoutGroup(transform);
+    ContentSizeFitter* contentSizeFitter = layout->GetComponent<contentSizeFitter*>();
     contentSizeFitter->set_horizontalFit(ContentSizeFitter::FitMode::Unconstrained);
     contentSizeFitter->set_verticalFit(ContentSizeFitter::FitMode::PreferredSize);
     layout->set_childControlWidth(false);

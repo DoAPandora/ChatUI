@@ -6,7 +6,7 @@
 #include "TwitchIRC/TwitchIRCClient.hpp"
 
 #include "bsml/shared/BSML.hpp"
-#include "bsml/shared/MainThreadScheduler.hpp"
+#include "bsml/shared/BSML/MainThreadScheduler.hpp"
 
 #include "UnityEngine/SceneManagement/Scene.hpp"
 #include "UnityEngine/SceneManagement/SceneManager.hpp"
@@ -133,7 +133,7 @@ MAKE_HOOK_MATCH(SceneManager_Internal_ActiveSceneChanged,
     if(nextScene.IsValid()) {
         std::string sceneName = to_utf8(csstrtostr(nextScene.get_name()));
         if(sceneName.find("Menu") != std::string::npos) {
-            QuestUI::MainThreadScheduler::Schedule(
+            BSML::MainThreadScheduler::Schedule(
                 [] {
                     if(!chatHandler)
                         CreateChatGameObject();
